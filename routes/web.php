@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('reg','UserController@reg');
-Route::post('doreg','UserController@doreg');
+Route::get('admin/reg','Admin\UserController@reg');
+Route::post('admin/doreg','Admin\UserController@doReg');

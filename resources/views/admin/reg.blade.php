@@ -9,13 +9,13 @@
 
     <title>注册</title>
 
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -26,17 +26,23 @@
     <form class="form-signin" method="post" action="doreg">
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">注册</h1>
-            <img src="images/login-logo.png" alt=""/>
+            <img src="/images/login-logo.png" alt=""/>
         </div>
 
 
         <div class="login-wrap">
-
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">
+                        <li>{{$error}}</li>
+                    </div>
+                @endforeach
+            @endif
             <p> 输入用户信息 </p>
             {{csrf_field()}}
             <input name="name" type="text" autofocus="" placeholder="User Name" class="form-control">
             <input name="password" type="password" placeholder="Password" class="form-control">
-            <input name="repassword" type="password" placeholder="Re-type Password" class="form-control">
+            <input name="password_confirmation" type="password" placeholder="Re-type Password" class="form-control">
             <label class="checkbox">
                 <input type="checkbox" value="agree this condition">我同意你们网站的协议
             </label>
@@ -56,9 +62,9 @@
     </form>
 
 </div>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
 
 </body>
 </html>
