@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        return view('admin.index');
+    }
+
     public function reg()
     {
         return view('admin.reg');
@@ -20,25 +26,37 @@ class UserController extends Controller
             'between' => 'The :attribute必须是:min个字符和:max字符',
             'password.confirmed'=>'The :attribute两次密码不一致'
         ];
-        $this->validate($request, [
+        $validator = $this->validate($request, [
             'name' => 'required|alpha_num|unique:users,name|between:4,8',
             'password' => 'required|between:4,8|confirmed',
             'password_confirmation' => 'required'
         ],$messages);
-        //$ret = User::create($request->all());
-        //dump($ret);
+        $ret = User::create($request->all());
+        $request->session()->flash('resuccess', '注册成功!');
+        return redirect('admin/login');
     }
 
-    //自己写的
-//    public function doReg(Request $request)
-//    {
-////        dd($request->all());
-//        $reg = new \App\User;
-//        $reg->name = $request->name;
-//        $reg->password = md5($request->password);
-//        $reg->save();
-////        return Auth::guard('reg');
-//        dump($reg);
-//
-//    }
+    public function login(){
+        return view('admin.login');
+    }
+
+    public function doLogin(Request $request){
+
+        $name = $request->get('name');
+        $password = $request->get('password');
+        if(Auth::attempt(['name'=>$name,'password'=>$password])){
+            return redirect('admin/profile');
+        }
+        $request->session()->flash('loginError','用户名或者密码错误');
+        return redirect('admin/login');
+    }
+
+    public function profile(){
+        return view('admin.profile',['user'=>Auth::user()->toArray()]);
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('admin/index');
+    }
 }
