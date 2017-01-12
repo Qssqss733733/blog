@@ -354,7 +354,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                        <li><a href="/#"><i class="fa fa-user"></i>  Profile</a></li>
+                        <li><a href="{{url('admin/index')}}"><i class="fa fa-user"></i>  Profile</a></li>
                         <li><a href="/#"><i class="fa fa-cog"></i>  Settings</a></li>
                         <li><a href="{{url('admin/logout')}}"><i class="fa fa-sign-out"></i> Log Out</a></li>
                     </ul>

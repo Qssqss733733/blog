@@ -29,11 +29,11 @@
                 {{session('resuccess')}}
             </div>
         @endif
-                @if(!empty(session('loginError')))
-                    <div class="alert alert-danger">
-                        {{session('loginError')}}
-                    </div>
-                @endif
+        @if(!empty(session('loginError')))
+            <div class="alert alert-danger">
+                {{session('loginError')}}
+            </div>
+        @endif
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">Sign In</h1>
             <img src="/images/login-logo.png" alt=""/>

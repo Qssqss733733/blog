@@ -51,8 +51,23 @@ class UserController extends Controller
         return redirect('admin/login');
     }
 
-    public function profile(){
-        return view('admin.profile',['user'=>Auth::user()->toArray()]);
+    public function profile($user_id = 1){
+        $user = User::find($user_id);
+        if($user){
+            if($user_id == Auth::User()->id){
+                return view('admin/profile')->with(['user'=>Auth::User()->toArray()]);
+            }else{
+                return view('admin/profile')->with(['user'=>$user->toArray()]);
+            }
+        }
+        return redirect('admin/index');
+//        return view('admin.profile',['user'=>Auth::user()->toArray()]);
+    }
+
+    public function loginId($user_id){
+        Auth::logout();
+        Auth::loginUsingId($user_id);
+        return redirect('admin/profile');
     }
 
     public function logout(){
